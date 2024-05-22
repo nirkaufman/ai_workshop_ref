@@ -8,7 +8,7 @@
 ```
 
 
-## STEP 3: Create a new file `search.ts` in the `services` folder
+## STEP 3: backend Create a new file `search.ts` in the `services` folder
 
 
 ## STEP 4: expose an endpoint to search
@@ -25,3 +25,5 @@
 ```bash
     ng generate component search
 ```
+
+## STEP 7: explore `store.similaritySearchWithScore(query, count);`

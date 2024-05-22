@@ -45,9 +45,15 @@ async function newMessage(history: any[], message: any): Promise<ChatMessage> {
   return response.choices[0].message ;
 }
 
-const chatHistory: ChatMessage[] = []
+let chatHistory: ChatMessage[] = []
 
 export async function getChatResponse(userMessage: string): Promise<ChatMessage[]> {
+
+  if(userMessage === "reset") {
+    chatHistory = [];
+    return chatHistory;
+  }
+
   const formattedMessage = { role: "user", content: userMessage }
   const chatResponse = await newMessage(chatHistory, formattedMessage)
 
