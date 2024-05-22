@@ -6,6 +6,7 @@ import {upload} from "./services/upload";
 import {docQuery} from "./services/docs";
 import cors from 'cors';
 import {Candidate, PrismaClient} from "@prisma/client";
+import {startConversation} from "./services/tools";
 
 const app = express();
 const prisma = new PrismaClient();
@@ -47,6 +48,15 @@ app.get('/can', async (req, res) => {
   const candidate: Candidate[] = await prisma.candidate.findMany();
   res.send(candidate);
 });
+
+app.post('/tools', async (req, res) => {
+  const query = req.body.query;
+  if (!query) return res.status(200);
+
+  const response = await startConversation(query);
+  res.send(response);
+});
+
 
 app.get('/', (req, res) => {
   res.send('I am Alive!');
