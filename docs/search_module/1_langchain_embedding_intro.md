@@ -8,28 +8,8 @@ but to determine the intent and contextual meaning of the words a person is usin
 Standard search, on the other hand, is based on finding exact matches of the search keywords. 
 It doesn't consider the context or the intent behind the words.
 
-Here are some key differences between semantic search and standard search:
-
-1. **Understanding Intent**:
-2. **Contextual Meaning**:
-3. **Personalization**:
-4. **Complex Queries**:
-5. **Synonyms and Variations**:
-
-In summary, semantic search provides more accurate and relevant results by understanding the 
+Semantic search provides more accurate and relevant results by understanding the 
 intent and context behind search queries.
-
-## Real world usage
-
-Semantic search has a wide range of applications in various fields. Here are a few examples:
-
-1. **Web Search Engines**:
-2. **E-commerce**:
-3. **Customer Support**:
-4. **Healthcare**:
-5. **Recruitment**:
-6. **Legal Research**:
-7. **Social Media Monitoring**: 
 
 ## Intro to vectors and embeddings
 
