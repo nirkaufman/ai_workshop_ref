@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Candidate {
+  id         String    @id @default(uuid())
+  name       String
+  bio        String
+  skills     String
+  reporterId String?
+  reporter   Reporter? @relation(fields: [reporterId], references: [id])
+}
+
+model Reporter {
+  id         String      @id @default(uuid())
+  name       String
+  candidates Candidate[]
+}
+
+model User {
+  id       String @id @default(uuid())
+  email    String @unique
+  password String
+}

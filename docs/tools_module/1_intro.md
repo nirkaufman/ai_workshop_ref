@@ -1,8 +1,7 @@
-# Intro to function calls
+# Intro to function calls (tools)
 
-# Upgrading AI with functions
+# Upgrading AI with tools
 
-- ref: https://scottmoss.notion.site/Upgrading-AI-with-functions-106aa9576e5c429d8ba04bf0a04c3d31
 - openAi ref: https://platform.openai.com/docs/guides/function-calling?lang=node.js
 
 ---
@@ -32,4 +31,3 @@
     - **Complexity**: Introducing function calling adds another layer of complexity to the system. Ensuring smooth interaction between the LLM and external functions can be challenging.
     - **Latency**: Real-time data fetching and processing can introduce delays in the LLM's responses.
     - **Accuracy & Reliability**: The LLM is dependent on the accuracy and reliability of the external functions it calls. If there's an issue with the external data source, it can impact the quality of the LLM's response.
-    - **Security Concerns**: Integrating external function calls can introduce security vulnerabilities, especially if interacting with untrusted sources or services.

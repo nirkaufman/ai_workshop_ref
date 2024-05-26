@@ -7,6 +7,8 @@ const openAi = new OpenAI();
 // Example dummy function hard coded to return the same weather
 // In production, this could be your backend API or an external API
 function getCurrentWeather(location: string, unit = "fahrenheit") {
+  console.log('getCurrentWeather executed');
+
   if (location.toLowerCase().includes("tokyo")) {
     return JSON.stringify({location: "Tokyo", temperature: "10", unit: "celsius"});
   } else if (location.toLowerCase().includes("san francisco")) {
@@ -18,6 +20,11 @@ function getCurrentWeather(location: string, unit = "fahrenheit") {
   }
 }
 
+function getDistance(source: string, destination: string) {
+  // use location services and google map API, and transport API to get the distance
+  return JSON.stringify({source, destination, distance: "100 miles"});
+
+}
 
 export async function startConversation(content: string | any[]) {
   // Step 1: send the conversation and available functions to the model
@@ -37,24 +44,47 @@ export async function startConversation(content: string | any[]) {
         content: content,
       },
     ],
-    tools: [{
-      type: "function",
-      function: {
-        name: "get_current_weather",
-        description: "Get the current weather in a given location",
-        parameters: {
-          type: "object",
-          properties: {
-            location: {
-              type: "string",
-              description: "The city and state, e.g. San Francisco, CA",
+    tools: [
+      {
+        type: "function",
+        function: {
+          name: "get_current_weather",
+          description: "Get the current weather in a given location",
+          parameters: {
+            type: "object",
+            properties: {
+              location: {
+                type: "string",
+                description: "The city and state, e.g. San Francisco, CA",
+              },
+              unit: {type: "string", enum: ["celsius", "fahrenheit"]},
             },
-            unit: {type: "string", enum: ["celsius", "fahrenheit"]},
+            required: ["location"],
           },
-          required: ["location"],
         },
       },
-    },],
+      {
+        type: "function",
+        function: {
+          name: "get_distance",
+          description: "Get the distance between one location to the other",
+          parameters: {
+            type: "object",
+            properties: {
+              source: {
+                type: "string",
+                description: "The destination location, city or state, e.g. Paris",
+              },
+              destination: {
+                type: "string",
+                description: "The destination location, city or state, e.g. Tokyo",
+              },
+            },
+            required: ["source", "destination"],
+          },
+        },
+      },
+    ],
     // auto is default, but we'll be explicit
     tool_choice: "auto",
   });
@@ -73,6 +103,7 @@ export async function startConversation(content: string | any[]) {
     const availableFunctions: Record<string, Function> = {
       // you cn add more functions here
       get_current_weather: getCurrentWeather,
+      get_distance: getDistance,
     };
 
     // extend conversation with assistant's reply
@@ -98,13 +129,13 @@ export async function startConversation(content: string | any[]) {
         content: functionResponse,
       });
     }
-    
+
     // get a new response from the model where it can see the function response
     const secondResponse = await openAi.chat.completions.create({
       model: "gpt-4o",
       messages: messages,
     });
 
-    return secondResponse.choices;
+    return secondResponse.choices[0].message.content;
   }
 }

@@ -234,5 +234,3 @@ export class ChatComponent implements AfterViewInit, OnDestroy {
 }
 ```
 
-### Step 12: discussions
-- ref: https://scottmoss.notion.site/Scaling-chat-06ef53fba44b4757b5e566841b6b7342

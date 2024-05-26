@@ -54,20 +54,21 @@ export const docQuery = async (userPrompt: string) => {
       {
         role: 'assistant',
         content:
-            'You are a helpful AI HR assistant. Answer questions to your best ability.',
+           'You are a helpful AI HR assistant. Answer questions to your best ability.',
       },
       {
         role: 'user',
         content: `
         Answer the following question using the provided context. If you cannot answer the question with the context, 
         don't lie and make up stuff. Just say you need more context.
+        Provide as many details as possible. expect a "skills" section on provided context.
         Question: ${userPrompt}
         Context: ${results.map((r) => r.pageContent).join('\n')}
         `,
       },
     ],
   })
-  
+
   return {
     answer: response.choices[0].message.content,
     sources: results.map((r) => r.metadata.source),
